@@ -1,0 +1,2 @@
+
+String aboutUs = "Baitk is a Professional maintenance app Platform. Here we will provide you only interesting content, which you will like very much. We're dedicated to providing you the best of maintenance app, with a focus on dependability and services. We're working to turn our passion for maintenance app into a booming online website. We hope you enjoy our maintenance app as much as we enjoy offering them to you.";

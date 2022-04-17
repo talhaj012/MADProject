@@ -1,4 +1,5 @@
 import 'package:authentication/pages/user/get_started.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/pages/login.dart';
@@ -19,6 +20,7 @@ class _SignupState extends State<Signup> {
   var confirmPassword = "";
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -39,6 +41,17 @@ class _SignupState extends State<Signup> {
         await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         // print(userCredential);
+        final uid = FirebaseAuth.instance.currentUser!.uid;
+        await FirebaseFirestore.instance.collection('Users').doc(uid).set(
+          {
+            'name': nameController.text,
+            'email': email,
+            'imageUrl' : "",
+            'Address': '',
+            'Gender': '',
+            'Phone': '',
+          }
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: Colors.green,
@@ -146,6 +159,29 @@ class _SignupState extends State<Signup> {
                 width: 70,
                 height: 300,
                 child: Lottie.asset('assets/register.json'),
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10.0),
+                child: TextFormField(
+                  autofocus: false,
+                  decoration: InputDecoration(
+                    labelText: 'Name: ',
+                    labelStyle: TextStyle(fontSize: 20.0),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(30)
+                      ),
+                    ),
+                    errorStyle:
+                        TextStyle(color: Colors.redAccent, fontSize: 15),
+                  ),
+                  controller: nameController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please Enter name';
+                    }
+                  },
+                ),
               ),
               Container(
                 margin: EdgeInsets.symmetric(vertical: 10.0),

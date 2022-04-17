@@ -81,7 +81,7 @@ class _AddTaskState extends State<AddTask> {
     final initialDate = DateTime.now();
     final newDate = await showDatePicker(
       context: context,
-      initialDate: date ?? initialDate,
+      initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year - 5),
       lastDate:  DateTime(DateTime.now().year + 5),
     );
@@ -116,7 +116,7 @@ class _AddTaskState extends State<AddTask> {
     final initialTime = TimeOfDay(hour: 7, minute: 0);
     final newTime = await showTimePicker(
       context: context,
-      initialTime: time ?? initialTime,
+      initialTime: TimeOfDay(hour: 8, minute: 10),
     );
 
     if(newTime == null){

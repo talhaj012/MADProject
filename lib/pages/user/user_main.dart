@@ -1,12 +1,13 @@
+import 'package:authentication/pages/user/Profile/profile.dart';
 import 'package:authentication/pages/user/categories.dart';
 import 'package:authentication/pages/user/sideBar.dart';
 import 'package:authentication/pages/user/task/Task_main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:authentication/pages/login.dart';
 import 'package:authentication/pages/user/change_password.dart';
 import 'package:authentication/pages/user/dashboard.dart';
-import 'package:authentication/pages/user/profile.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class UserMain extends StatefulWidget {
@@ -30,18 +31,47 @@ class _UserMainState extends State<UserMain> {
       _selectedIndex = index;
     });
   }
-  
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetch();
+  }
+
   final storage = new FlutterSecureStorage();
+
+  String name = '';
+  fetch() async {
+    final user = FirebaseAuth.instance.currentUser;
+    print(user!.uid);
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(user.uid)
+          .get()
+          .then((ds) {
+        name = ds['name'];
+
+      });
+      setState(() {});
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideBar(),
+      // drawer: SideBar(),
       appBar: AppBar(
+        centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Welcome, Talha!!"),
+            Text('Welcome, $name'),
             // ElevatedButton(
             //   onPressed: () async => {
             //     await FirebaseAuth.instance.signOut(),
