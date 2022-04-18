@@ -55,12 +55,12 @@ dependencies:
   overlay_support: ^1.2.1
   connectivity_plus: ^2.2.1
 
-  android_alarm_manager_plus: ^2.0.5
-  firebase_messaging: ^11.2.11
-  flutter_local_notifications: ^9.4.0
-  #for listening notifications
-  rxdart: ^0.27.3
-  flutter_native_timezone: ^2.0.0
+#  android_alarm_manager_plus: ^2.0.5
+#  firebase_messaging: ^11.2.11
+#  flutter_local_notifications: ^9.4.0
+#  #for listening notifications
+#  rxdart: ^0.27.3
+#  flutter_native_timezone: ^2.0.0
 
   geocoding: ^2.0.4
   velocity_x: ^3.4.0
